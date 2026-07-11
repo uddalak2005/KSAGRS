@@ -1,0 +1,53 @@
+name: Deploy AgroSure Backend
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  deploy:
+    name: Deploy to AWS EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH access
+        run: |
+          mkdir -p ~/.ssh
+          # Write it as a standard deploy key identity
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key.pem
+          chmod 600 ~/.ssh/deploy_key.pem
+          ssh-keyscan -H "${{ secrets.INSTANCE_IP }}" >> ~/.ssh/known_hosts
+
+      - name: Deploy via SSH and Docker Compose
+        run: |
+          # Use the absolute path to your created key file
+          ssh -i ~/.ssh/deploy_key.pem -o StrictHostKeyChecking=no \
+            "${{ secrets.INSTANCE_USER_NAME }}"@"${{ secrets.INSTANCE_IP }}" << 'EOF'
+          
+            set -e # Stop execution if any command fails
+          
+            echo "Pulling latest code..."
+            cd /home/ec2-user/AGRS
+
+            git config pull.rebase false
+            git pull origin main
+          
+            echo "Stopping old containers..."
+            docker compose down --remove-orphans
+          
+            echo "Cleaning up images..."
+            docker system prune -a --volumes -f
+          
+            echo "Building and starting fresh containers..."
+            # Removed nohup & background fork. Let GitHub Actions watch the build logs properly.
+            docker compose up -d --build --force-recreate
+          
+            echo "Deployment finished successfully!"
+          EOF

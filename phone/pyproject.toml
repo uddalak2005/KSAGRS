@@ -1,0 +1,24 @@
+[project]
+name = "kisaanvaani"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "black>=26.5.1",
+    "datasets>=4.8.5",
+    "dotenv>=0.9.9",
+    "fastapi>=0.136.1",
+    "langchain>=1.3.1",
+    "langchain-chroma>=1.1.0",
+    "langchain-core>=1.4.0",
+    "langchain-groq>=1.1.2",
+    "langchain-huggingface>=1.2.2",
+    "livekit>=1.1.8",
+    "livekit-agents>=1.5.12",
+    "pipecat-ai[livekit,sarvam,silero]>=1.2.1",
+    "pydantic>=2.13.4",
+    "python-dotenv>=1.2.2",
+    "sentence-transformers>=5.5.1",
+    "uvicorn[standard]>=0.47.0",
+]

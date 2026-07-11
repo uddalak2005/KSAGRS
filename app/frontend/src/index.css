@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Custom Google Translate Overrides */
+iframe.goog-te-banner-frame,
+iframe.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame,
+.goog-te-banner {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Hide Google's wrapper container that overlays page headers */
+body>.skiptranslate,
+body>div.skiptranslate {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  opacity: 0 !important;
+}
+
+
+/* Force the body and html to stay at top 0, overriding Google's injected 40px margins */
+html,
+body,
+html.translated-ltr,
+html.translated-rtl,
+.translated-ltr,
+.translated-rtl {
+  top: 0px !important;
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+  position: static !important;
+}
+
+/* Hide hover tooltip popup for translated text */
+#goog-gt-tt,
+#goog-gt-tt.sans,
+.goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Prevent highlight behavior when hovering translated text */
+font {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  font-family: inherit !important;
+}
+
+/* Hide default Google Translate widgets */
+.goog-te-gadget,
+.goog-logo-link {
+  display: none !important;
+}

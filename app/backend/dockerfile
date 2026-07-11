@@ -1,0 +1,20 @@
+FROM node:20
+
+WORKDIR /app
+
+# 1. Copy package files first
+COPY package*.json ./
+
+# 2. Install your npm dependencies
+RUN npm install
+
+# 3. CRITICAL: Run apt-get update to populate package indexes, 
+# then let Puppeteer handle the system dependency installation.
+RUN apt-get update && npx puppeteer browsers install chrome --install-deps && rm -rf /var/lib/apt/lists/*
+
+# 4. Copy the rest of your application code
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
