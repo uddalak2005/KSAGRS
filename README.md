@@ -2,6 +2,13 @@
 ### A Multi-Agent, Feature-Phone-First Financial & Advisory Platform for Indian Farmers
 
 > "If a farmer can make one phone call, he deserves the same financial dignity as anyone else."
+>
+> 
+
+
+https://github.com/user-attachments/assets/9a01dfb4-d82e-40ae-ac69-2e6aceb813d3
+
+)
 
 ---
 
